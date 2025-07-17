@@ -4,7 +4,7 @@
     we get 3, 5, 6 and 9. The sum of these multiples is 23.
     Find the sum of all the multiples of 3 or 5 below 1000. '''
     
-def solution(n):
+def solution(n) -> int:
     # The function takes one input n, which is the higher limit
     # First note that 3 + 6 + 9 + ... = 3(1 + 2 + 3 + ...).
     # Hence, without the use of loops, we can solve this problem in O(1)
@@ -28,7 +28,9 @@ def solution(n):
     
 def main():
     n = input("Type an integer:")
-    print(f"Sum of all the multiples of 3 or 5 below {n} is {solution(n):.0f}")
+    print(f"Sum of all the multiples of 3 or 5 below {n} is {solution(n)}")
     
 if __name__ == "__main__":
     main()
+    
+# Solved 17th July 2025.
