@@ -8,10 +8,9 @@
     values do not exceed four million, find the sum of the even-valued terms. */
     
 #include <iostream>
-#include <cmath>
 using namespace std;
 
-#define num long long int
+#define num unsigned long long int
 
 num solution(num n) {
     // The function takes one input n, which is the higher limit
