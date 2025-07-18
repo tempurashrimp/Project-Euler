@@ -50,13 +50,13 @@ $$
 
 and effectively shifting and computing each successive term. Thus, computing the $n$th Fibonacci term only takes $\mathcal{O}(n)$ time.
 
-Further research shows that there exists a recurrence relation betweeen the even Fibonacci numbers. Let the even sequence be represented as $E(n)$. Then,
+Further research shows that there exists a recurrence relation between the even Fibonacci numbers. Let the even sequence be represented as $E(n)$. Then,
 
 $$
 E(n)=4E(n-1)+E(n-2)
 $$
 
-Using this recurrence relation optimises the computation of Fibonacci terms (as now it only involves every third term in the sequence).
+Using this recurrence relation optimizes the computation of Fibonacci terms (as now it only involves every third term in the sequence).
 ```js
 function solution(n) {
 	let fibTerms = [0, 0, 2];
@@ -115,7 +115,7 @@ function solution(number) {
         return n;
     } else {
         return largestPrime;
-	}
+    }
 }
 ```
 
@@ -124,3 +124,43 @@ function solution(number) {
 https://crypto.stackexchange.com/questions/72351/why-can-every-prime-number-be-written-as-6k%C2%B11 (Proof that all primes $>3$ can be expressed $6k\pm 1$)
 https://www.geeksforgeeks.org/dsa/find-largest-prime-factor-number/ (Solution explanation)
 https://stackoverflow.com/questions/5811151/why-do-we-check-up-to-the-square-root-of-a-number-to-determine-if-the-number-is (Proving that checking prime numbers goes only up to the square root)
+
+## Problem 004: Largest Palindrome Product
+*A palindromic number reads the same both ways. The largest palindrome made from the product of two $2$-digit numbers is $9009=91\times 99$. Find the largest palindrome made from the product of two $3$-digit numbers.*
+
+It seems that there is no further way to mathematically optimize this, other than via brute-force.
+```js
+function solution(n) {
+    if (n == 1) {
+        return 9;
+    }
+
+    let lowerBound = Math.pow(10, n - 1);
+    let upperBound = Math.pow(10, n) - 1;
+    let maxPalindrome = 0;
+
+    for (let i = upperBound; i >= lowerBound; i--) {
+        for (let j = upperBound; j >= lowerBound; j--) {
+            let product = i * j;
+            let reverseProduct = 0;
+
+            while (product != 0) {
+                reverseProduct = (10 * reverseProduct) + (product % 10);
+                product = Math.floor(product / 10);
+            }
+
+            if (i * j == reverseProduct &&
+                reverseProduct > maxPalindrome) {
+                maxPalindrome = reverseProduct;
+
+            }
+        }
+    }
+
+	return maxPalindrome;
+}
+```
+
+**Solved 18th July 2025**
+**Sources:**
+https://www.geeksforgeeks.org/dsa/check-if-a-number-is-palindrome/ (Checking for palindrome without string manipulation)
