@@ -8,7 +8,7 @@
 #include <cmath>
 using namespace std;
 
-#define num long long int
+using num = unsigned long long;
 
 num solution(num n) {
     // The function takes one input n, which is the higher limit
