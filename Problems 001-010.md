@@ -164,3 +164,44 @@ function solution(n) {
 **Solved 18th July 2025**
 **Sources:**
 https://www.geeksforgeeks.org/dsa/check-if-a-number-is-palindrome/ (Checking for palindrome without string manipulation)
+
+## Problem 005
+*$2520$ is the smallest number that can be divided by each of the numbers from $1$ to $10$ without any remainder. What is the smallest positive number that is **evenly divisible** by all of the numbers from $1$ to $20$?*
+
+First generate the list of all prime numbers between $2$ and $20$. (Obviously this number must be divisible by 1). Then, obtain the exponentiation of each prime by computing
+$$
+\text{exponent}=\lfloor \log_{p}20 \rfloor 
+$$
+where $p$ is prime, and $\lfloor x \rfloor$ is the floor function that rounds down to an integer.
+
+```js
+function solution(n) {
+    let primes = [];
+    let highestMultiple = 1;
+  
+    for (let i = 2; i <= n; i++) {
+        if (isPrime(i)) {
+            primes.push(i);
+        }
+    }
+
+    primes.forEach(function(p) {
+        highestMultiple *= Math.pow(p, Math.floor(
+            (Math.log(n) / Math.log(p))));
+    });
+
+    return highestMultiple;
+}
+
+
+function isPrime(n) {    
+    for (let i = 2; i * i <= n; i++) {
+        if (n % i == 0) {
+            return false;
+        }
+	}
+	
+    return true;
+}
+```
+**Solved 19th July 2025**
