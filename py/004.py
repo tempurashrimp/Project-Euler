@@ -22,9 +22,12 @@ def solution(n) -> int:
     # Loop through every single digit.
     # Perhaps by starting at the upper bound, we can
     # reduce the number of computations.
-    for i in range(lower_bound, upper_bound):
-        for j in range(lower_bound, upper_bound):
+    for i in range(upper_bound, lower_bound, -1):
+        for j in range(upper_bound, i, -1):
             product = i * j
+            
+            if product < max_palindrome:
+                break
             
             # Checking for palindrome with string operations
             # (it's Python anyway)
@@ -37,10 +40,11 @@ def solution(n) -> int:
 
 
 def main():
-    for n in range(1, 6):
-        print(f"The largest composite palindrome with {n} digits is {solution(n)}.")
+    for n in range(1, 8):
+        print(f"The largest composite palindrome with two {n}-digit products is {solution(n)}.")
     
 if __name__ == "__main__":
     main()
     
 # Solved 18th July 2025.
+# Modified (1st time) 19th July 2025

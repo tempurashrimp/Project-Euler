@@ -20,10 +20,14 @@ function solution(n) {
     let maxPalindrome = 0;
     // Loop through every single digit.
     for (let i = upperBound; i >= lowerBound; i--) {
-        for (let j = upperBound; j >= lowerBound; j--) {
+        // Only check each unique pair once (i.e. 101 * 102 = 102 * 101)
+        for (let j = upperBound; j >= i; j--) {
             let product = i * j;
-            if (product < maxPalindrome) {
-                continue;
+
+            // Since we are counting down, we can stop checking
+            // as we would have found the largest palindrome first.
+            if (product <= maxPalindrome) {
+                break;
             }
             
             // Checking for palindrome without string operations
@@ -43,3 +47,4 @@ function solution(n) {
 }
 
 // Solved 18th July 2025.
+// Modified (1st time) 19th July 2025.

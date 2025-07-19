@@ -25,10 +25,14 @@ num solution(num n) {
     num maxPalindrome = 0;
     // Loop through every single digit.
     for (num i = upperBound; i >= lowerBound; i--) {
-        for (num j = upperBound; j >= lowerBound; j--) {
+        // Only check each unique pair once (i.e. 101 * 102 = 102 * 101)
+        for (num j = upperBound; j >= i; j--) {
             num product = i * j;
-            if (product < maxPalindrome) {
-                continue;
+
+            // Since we are counting down, we can stop checking
+            // as we would have found the largest palindrome first.
+            if (product <= maxPalindrome) {
+                break;
             }
             
             // Checking for palindrome without string operations
@@ -49,11 +53,12 @@ num solution(num n) {
 
 int main(void) {
     for (int n = 1; n < 6; n++) {
-        cout << "The largest composite palindrome with " 
-        << n << " digits is " << solution(n) << endl;
+        cout << "The largest composite palindrome with two " 
+        << n << "-digit products is " << solution(n) << endl;
     }
 
     return 0;
 }
 
 // Solved 18th July 2025.
+// Modified (1st time) 19th July 2025.

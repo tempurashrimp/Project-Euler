@@ -128,7 +128,7 @@ https://stackoverflow.com/questions/5811151/why-do-we-check-up-to-the-square-roo
 ## Problem 004: Largest Palindrome Product
 *A palindromic number reads the same both ways. The largest palindrome made from the product of two $2$-digit numbers is $9009=91\times 99$. Find the largest palindrome made from the product of two $3$-digit numbers.*
 
-It seems that there is no further way to mathematically optimize this, other than via brute-force.
+It seems that there is no further way to mathematically optimize this, other than via brute-force. However, we can start from the upper-bound (i.e. 999) and count down. We can also ensure that for the two factors $a$ or $b$, $a > b$ (since $ab$=$ba$, effectively halving the number of checks).
 ```js
 function solution(n) {
     if (n == 1) {
@@ -140,10 +140,14 @@ function solution(n) {
     let maxPalindrome = 0;
 
     for (let i = upperBound; i >= lowerBound; i--) {
-        for (let j = upperBound; j >= lowerBound; j--) {
+        for (let j = upperBound; j >= i; j--) {
             let product = i * j;
             let reverseProduct = 0;
-
+                       
+            if (product <= maxPalindrome) {
+				break;
+			}
+			
             while (product != 0) {
                 reverseProduct = (10 * reverseProduct) + (product % 10);
                 product = Math.floor(product / 10);
@@ -162,6 +166,7 @@ function solution(n) {
 ```
 
 **Solved 18th July 2025**
+**Modified (1st time) 19th July 2025**
 **Sources:**
 https://www.geeksforgeeks.org/dsa/check-if-a-number-is-palindrome/ (Checking for palindrome without string manipulation)
 
