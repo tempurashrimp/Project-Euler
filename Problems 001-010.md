@@ -170,7 +170,7 @@ function solution(n) {
 **Sources:**
 https://www.geeksforgeeks.org/dsa/check-if-a-number-is-palindrome/ (Checking for palindrome without string manipulation)
 
-## Problem 005
+## Problem 005: Smallest Multiple
 *$2520$ is the smallest number that can be divided by each of the numbers from $1$ to $10$ without any remainder. What is the smallest positive number that is **evenly divisible** by all of the numbers from $1$ to $20$?*
 
 First generate the list of all prime numbers between $2$ and $20$. (Obviously this number must be divisible by 1). Then, obtain the exponentiation of each prime by computing
@@ -210,3 +210,37 @@ function isPrime(n) {    
 }
 ```
 **Solved 19th July 2025**
+
+## Problem 006: Sum Square Difference
+*The sum of the squares of the first ten natural numbers is,
+$$
+1^{2}+2^{2}+\dots+10^{2}=385.
+$$
+The square of the sum of the first ten natural numbers is,
+$$
+(1+2+\dots+10)^{2}=3025.
+$$
+Hence the difference between the sum of the squares of the first ten natural numbers and the square of the sum is $3025-385=2640$. Find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum.*
+
+Note that
+$$
+\sum_{n}i=\frac{1}{2}n(n+1)
+$$
+and
+$$
+\sum _{n}i^{2}=\frac{1}{6}n(n+1)(2n+1).
+$$
+By applying these formulae, our time complexity is basically $\mathcal{O}(1)$.
+```js
+function solution(n) {
+    let sumSquares = n * (n + 1) * (2 * n + 1) / 6;
+    let squaresSum = n * (n + 1) / 2;
+    squaresSum *= squaresSum;
+
+    return squaresSum - sumSquares;
+}
+```
+
+**Solved 20th July 2025.**
+**Sources:**
+https://math.stackexchange.com/questions/816861/how-do-i-derive-the-formula-for-the-sum-of-squares (Deriving the formula for the sum of squares)
