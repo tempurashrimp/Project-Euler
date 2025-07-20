@@ -118,7 +118,6 @@ function solution(number) {
     }
 }
 ```
-
 **Solved 18th July 2025.**
 **Sources:**
 https://crypto.stackexchange.com/questions/72351/why-can-every-prime-number-be-written-as-6k%C2%B11 (Proof that all primes $>3$ can be expressed $6k\pm 1$)
@@ -128,7 +127,7 @@ https://stackoverflow.com/questions/5811151/why-do-we-check-up-to-the-square-roo
 ## Problem 004: Largest Palindrome Product
 *A palindromic number reads the same both ways. The largest palindrome made from the product of two $2$-digit numbers is $9009=91\times 99$. Find the largest palindrome made from the product of two $3$-digit numbers.*
 
-It seems that there is no further way to mathematically optimize this, other than via brute-force. However, we can start from the upper-bound (i.e. 999) and count down. We can also ensure that for the two factors $a$ or $b$, $a > b$ (since $ab$=$ba$, effectively halving the number of checks).
+It seems that there is no further way to mathematically optimize this, other than via brute-force. However, we can start from the upper-bound (i.e. $999$) and count down. We can also ensure that for the two factors $a$ or $b$, $a > b$ (since $ab$=$ba$, effectively halving the number of checks).
 ```js
 function solution(n) {
     if (n == 1) {
@@ -164,9 +163,8 @@ function solution(n) {
 	return maxPalindrome;
 }
 ```
-
-**Solved 18th July 2025**
-**Modified (1st time) 19th July 2025**
+**Solved 18th July 2025**.
+**Modified (1st time) 19th July 2025.**
 **Sources:**
 https://www.geeksforgeeks.org/dsa/check-if-a-number-is-palindrome/ (Checking for palindrome without string manipulation)
 
@@ -240,7 +238,42 @@ function solution(n) {
     return squaresSum - sumSquares;
 }
 ```
-
 **Solved 20th July 2025.**
 **Sources:**
 https://math.stackexchange.com/questions/816861/how-do-i-derive-the-formula-for-the-sum-of-squares (Deriving the formula for the sum of squares)
+## Problem 007: 10001st prime
+*By listing the first six prime numbers: $2, 3, 5, 7, 11,$ and $13$, we can see that the $6$th prime is $13$. What is the $n$th prime number?*
+
+It seems that there is no further way to mathematically optimize this, other than via brute-force. However, we can modify the prime checking function, using the $6k\pm 1$ property of primes.
+```js
+function solution(n) {
+    let prime = 5;
+    let count = 3;
+
+    while (count < n) {
+        prime++;
+        if (isPrime(prime)) {
+            count++;
+        }
+    }
+    
+    return prime;
+}
+
+function isPrime(n) {    
+    if (n % 2 == 0 || n % 3 == 0) {
+        return false;
+    }
+
+    for (let i = 5; i * i <= n; i++) {
+        if (n % i == 0 || n % (i + 2) == 0) {
+            return false;
+        }
+    }
+
+    return true;
+}
+```
+**Solved 20th July 2025.**
+**Sources:**
+https://www.geeksforgeeks.org/dsa/program-to-find-the-nth-prime-number/ (Improved method of testing a prime number)
