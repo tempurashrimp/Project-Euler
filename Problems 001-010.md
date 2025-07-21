@@ -309,4 +309,43 @@ function solution(n) {
 }
 ```
 **Solved 21st July 2025.**
-	
+
+## Problem 009: Special Pythagorean Triplet
+*A Pythagorean triplet is a set of three natural numbers, $a<b<c$, for which,* 
+$$
+a^{2}+b^{2}=c^{2}
+$$
+*For example, $3^{2}+4^{2}=9+16=25=5^{2}$. There exists exactly one Pythagorean triplet for which $a+b+c=1000$. Find the product $abc$.
+
+Euclid's formulae can be used to generate Pythagorean triplets.
+$$
+a^{2}+b^{2}=c^{2}\implies a=m^{2}-n^{2},b=2mn,c=m^{2}+n^{2}
+$$
+where $m,n\in\mathbb{N}$ such that $m>n>0$.
+
+``` js
+function solution(k) {
+  let sumOfabc = 0, productOfabc = 0;
+  let m = 2, n = 1;
+
+  while (sumOfabc != k) {
+    let a = (m * m) - (n * n), b = 2 * m * n,
+      c = (m * m) + (n * n);
+
+    sumOfabc = a + b + c;
+    productOfabc = a * b * c;
+
+    if (m <= n) {
+      m++;
+      n = 1;
+    } else {
+      n++;
+    }
+  }
+  
+  return productOfabc;
+}
+```
+**Solved 21st July 2025.**
+**Sources:**
+https://en.wikipedia.org/wiki/Pythagorean_triple#Generating_a_triple (Euclid's Formula)
