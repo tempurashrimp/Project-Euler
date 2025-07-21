@@ -61,4 +61,4 @@ int main(void) {
     return 0;
 }
 
-// Solved 19th July 2025.
+// Solved 20th July 2025.
