@@ -13,16 +13,16 @@ def solution(n) -> int:
     n = int(n)
     
     highest3 = (n - 1) // 3
-    sum3 = 3 * ((highest3 * (highest3 + 1)) / 2)
+    sum3 = 3 * ((highest3 * (highest3 + 1)) // 2)
 
     # The same logic can be applied to multiples of 5.
     highest5 = (n - 1) // 5
-    sum5 = 5 * ((highest5 * (highest5 + 1)) / 2)
+    sum5 = 5 * ((highest5 * (highest5 + 1)) // 2)
     
     # Caution must be taken, as multiples of 15 
     # will eventually be double-counted.
     highest15 = (n - 1) // 15
-    sum15 = 15 * ((highest15 * (highest15 + 1)) / 2)
+    sum15 = 15 * ((highest15 * (highest15 + 1)) // 2)
 
     return sum3 + sum5 - sum15
     

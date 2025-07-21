@@ -13,12 +13,12 @@ def solution(n) -> int:
     # Start by repeatedly dividing n by 2
     while (n % 2 == 0):
         largestPrime = 2
-        n /= 2
+        n //= 2
 
     # Repeat the same procedure for 3
     while (n % 3 == 0):
         largestPrime = 3
-        n /= 3
+        n //= 3
 
     # Divide by numbers in the form (6k + 1) or (6k - 1),
     # as every prime number (except 2 or 3) can be expressed such.
@@ -29,11 +29,11 @@ def solution(n) -> int:
     while m * m <= n:
         while n % m == 0:
             largestPrime = m
-            n /= m
+            n //= m
 
         while n % (m + 2) == 0:
             largestPrime = m + 2
-            n /= (m + 2)
+            n //= (m + 2)
             
         m += 6
 
