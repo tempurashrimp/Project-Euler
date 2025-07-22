@@ -4,75 +4,8 @@
     of all the primes below two million. */
 
 #include <iostream>
-#include <numeric>
 #include <vector>
-
-using namespace std;
-using num = unsigned long long;
-
-// Implementation of Sieve based on
-// https://www.youtube.com/watch?v=xwM8PGBYazM
-class PrimeSieve {
-    public:
-        vector<num> primes;
-        num endSegment = 1;
-        PrimeSieve() {
-            primes = {2, 3, 5, 7};
-            endSegment = 1;
-        }
-        void extend();
-};
-
-// To check all the primes up to 5^2 and so on,
-// you only need to check for the previous primes (i.e., 2, 3 etc.)
-void PrimeSieve::extend() {
-    num k = endSegment;
-    num p = primes.at(k), q = primes.at(k + 1);
-    
-    // Range from the square of the previous prime to current prime
-    // segment = range(p * p, q * q)
-    num segmentMin = p * p, segmentLen = q * q - p * p;
-    vector<num> segment(segmentLen);
-    iota(segment.begin(), segment.end(), segmentMin);
-    
-    // is_prime = [True] * segment_len
-    vector<bool> isPrime(segmentLen, true);
-    num pk, start;
-    
-    for (size_t i = 0; i <= k; ++i) {
-        // Perform Sieve of Eratosthenes algorithm
-        pk = primes.at(i);
-        
-        // Apparently segment_min + (-segment_min) % pk does not
-        // yield the same result in C++. 
-        start = segmentMin + (pk - segmentMin % pk) % pk;
-        // The second % (% pk) forces the adjustment to be less than
-        // pk itself. (If it is not present, then start = segmentMin + pk,
-        // is possible which is NOT the smallest multiple of pk >= segmentMin.)
-
-        // Range from the square of previous prime to current prime.
-        // is_prime[start - segment_min::pk] = 
-        // repeat(False, len(range(start - segment_min, segment_len, pk)))
-        for (size_t j = start - segmentMin; 
-            j < segmentLen; j += pk) {
-            isPrime.at(j) = false;
-        }
-    }
-
-    // self.primes.extend([x for x,
-    // prime in zip(segment, is_prime) if prime])
-    for (size_t j = 0; j < segmentLen; ++j){
-        if (isPrime.at(j)) {
-            primes.push_back(segmentMin + j);
-        }      
-    }
-
-    endSegment += 1;
-
-    // Save memory?
-    segment.clear();
-    isPrime.clear(); 
-}
+#include "PrimeSieve.h"
 
 num solution(num n) {
     // The function takes one input n, which represents the
@@ -107,3 +40,4 @@ int main(void) {
 }
 
 // Solved 22nd July 2025.
+// Modified (1st time) 23rd July 2025.
