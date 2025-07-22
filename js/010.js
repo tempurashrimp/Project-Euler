@@ -3,45 +3,35 @@
     The sum of the primes below 10 is 2+3+5+7=17. Find the sum 
     of all the primes below two million. */
 
-#include <iostream>
-#include <numeric>
-#include <vector>
-
-using namespace std;
-using num = unsigned long long;
-
 // Implementation of Sieve based on
 // https://www.youtube.com/watch?v=xwM8PGBYazM
 class PrimeSieve {
-    public:
-        vector<num> primes;
-        num endSegment = 1;
-        PrimeSieve() {
-            primes = {2, 3, 5, 7};
-            endSegment = 1;
-        }
-        void extend();
-};
+    constructor() {
+        this.primes = [2, 3, 5, 7];
+        this.endSegment = 1;
+    }
+}
+
 
 // To check all the primes up to 5^2 and so on,
 // you only need to check for the previous primes (i.e., 2, 3 etc.)
-void PrimeSieve::extend() {
-    num k = endSegment;
-    num p = primes.at(k), q = primes.at(k + 1);
+PrimeSieve.prototype.extend = function() {
+    let k = this.endSegment, p = this.primes[k], q = this.primes[k + 1];
+    let segmentMin = p * p, segmentLen = (q * q) - (p * p);
+    let segment = [];
     
     // Range from the square of the previous prime to current prime
     // segment = range(p * p, q * q)
-    num segmentMin = p * p, segmentLen = q * q - p * p;
-    vector<num> segment(segmentLen);
-    iota(segment.begin(), segment.end(), segmentMin);
-    
+    for (let i = 0; i < segmentLen; i++) {
+        segment.push(i + segmentMin)
+    }
+
     // is_prime = [True] * segment_len
-    vector<bool> isPrime(segmentLen, true);
-    num pk, start;
-    
-    for (size_t i = 0; i <= k; ++i) {
-        // Perform Sieve of Eratosthenes algorithm
-        pk = primes.at(i);
+    let isPrime = new Array(segmentLen).fill(true);
+    let pk = 0, start = 0;
+
+    for (let i = 0; i <= k; i++) {
+        pk = this.primes[i];
         
         // Apparently segment_min + (-segment_min) % pk does not
         // yield the same result in C++. 
@@ -53,57 +43,40 @@ void PrimeSieve::extend() {
         // Range from the square of previous prime to current prime.
         // is_prime[start - segment_min::pk] = 
         // repeat(False, len(range(start - segment_min, segment_len, pk)))
-        for (size_t j = start - segmentMin; 
-            j < segmentLen; j += pk) {
-            isPrime.at(j) = false;
+        for (let j = start - segmentMin; j < segmentLen; j += pk) {
+            isPrime[j] = false;
         }
     }
 
+    
     // self.primes.extend([x for x,
     // prime in zip(segment, is_prime) if prime])
-    for (size_t j = 0; j < segmentLen; ++j){
-        if (isPrime.at(j)) {
-            primes.push_back(segmentMin + j);
+    for (let j = 0; j < segmentLen; ++j){
+        if (isPrime[j]) {
+            this.primes.push(segmentMin + j);
         }      
     }
 
-    endSegment += 1;
-
-    // Save memory?
-    segment.clear();
-    isPrime.clear(); 
+    this.endSegment += 1;
 }
 
-num solution(num n) {
+function solution(n) {
     // The function takes one input n, which represents the
     // limit where we sum prime numbers under.
-    num primeSum = 0;
-    PrimeSieve sieve;
+    let primeSum = 0;
+    let sieve = new PrimeSieve();
 
     while (sieve.primes.back() < n) {
         sieve.extend();
     } 
 
-    for (num prime: sieve.primes) {
+    sieve.primes.forEach(prime => {
         if (prime < n) {
             primeSum += prime;
-        } else {
-            break;
         }
-    }
+    }); 
 
     return primeSum;
-}
-
-int main(void) {
-    num n;
-    cout << "Input an integer: ";
-    cin >> n;
-
-    cout << "The sum of prime numbers under " << n 
-    << " is " << solution(n) << endl;
-
-    return 0;
 }
 
 // Solved 22nd July 2025.

@@ -357,3 +357,24 @@ Because I have repeatedly used the same method to generate primes, I will now im
 
 The Segmented approach effectively implements the same algorithm as the Sieve of Erathosthenes. However, by segmentation of the array of natural numbers, we can save on the RAM used. Henceforth I shall use this prime calculation method.
 
+```js
+function solution(n) {
+    let primeSum = 0;
+    let sieve = new PrimeSieve();
+
+    while (sieve.primes.back() < n) {
+        sieve.extend();
+    }
+
+    sieve.primes.forEach(prime => {
+        if (prime < n) {
+            primeSum += prime;
+        }
+    });
+
+    return primeSum;
+}
+```
+**Solved 22nd July 2025.**
+**Sources:**
+https://www.youtube.com/watch?v=xwM8PGBYazM (Implementation of prime sieve)

@@ -1,4 +1,8 @@
 
+''' Problem 010:
+    The sum of the primes below 10 is 2+3+5+7=17. Find the sum 
+    of all the primes below two million. '''
+
 # Segmented Sieve of Eratosthenes implementation
 # https://www.youtube.com/watch?v=xwM8PGBYazM
 from itertools import repeat
@@ -55,7 +59,7 @@ def primes_less_than(n: int) -> list[int]:
 
 def main():
     import time
-    target = 2000000
+    target = int(input("Enter an integer: "))
     start = time.perf_counter()
     sieve = PrimeSieve()
     while sieve.primes[-1] < target:
@@ -65,14 +69,10 @@ def main():
     prime_sum = sum([p for p in sieve.primes if p < target])
     elapsed = time.perf_counter() - start
     print(f"done in {elapsed:2f}s.")
-    print(prime_sum)
-
-
-def test():
-    sieve = PrimeSieve()
-    sieve.extend()
-    sieve.extend()
+    print(f"Sum of primes under {target} is {prime_sum}")
 
 
 if __name__ == "__main__":
-    test()
+    main()
+    
+# Solved 22nd July 2025.
