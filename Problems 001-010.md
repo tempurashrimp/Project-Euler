@@ -349,3 +349,11 @@ function solution(k) {
 **Solved 21st July 2025.**
 **Sources:**
 https://en.wikipedia.org/wiki/Pythagorean_triple#Generating_a_triple (Euclid's Formula)
+
+## Problem 010: Summation of Primes
+*The sum of the primes below $10$ is $2+3+5+7=17$. Find the sum of all the primes below two million.*
+
+Because I have repeatedly used the same method to generate primes, I will now implement the Segmented Sieve of Eratosthenes. The Sieve of Erathosthenes is originally implemented by creating a boolean list of numbers. Starting from 2, cross out every multiple of 2 in that list. Then, move on to the next unmarked (prime number), 3, and cross out every multiple of 3. Continue until the list has been exhausted.
+
+The Segmented approach effectively implements the same algorithm as the Sieve of Erathosthenes. However, by segmentation of the array of natural numbers, we can save on the RAM used. Henceforth I shall use this prime calculation method.
+
