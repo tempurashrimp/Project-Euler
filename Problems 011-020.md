@@ -150,3 +150,91 @@ function solution(n) {
 **Solved 24th July 2025.**
 **Sources**:
 https://math.stackexchange.com/questions/2782625/how-to-get-all-the-factors-of-a-number-using-its-prime-factorization (Number of factors based on prime factorization)
+
+## Problem 013: Large Sum
+*Work out the first ten digits of the sum of the following one-hundred $50$-digit numbers.*
+
+To solve this in C++, a class for large numbers (represented as a string will be defined). This class will be able to simulate arithmetic addition by the digit. The solution below will be written in C++ instead; both Python and JavaScript have built-in functionality to represent large integers.
+
+```cpp
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <fstream>
+  
+using namespace std;
+
+class LargeNumber {
+public:
+    LargeNumber(string n) {
+        number = n;
+    }
+
+    string number;
+};
+
+LargeNumber operator+ (const LargeNumber &n1, const LargeNumber &n2) {
+    string sumNumber = "";
+    
+    int carry = 0;
+    string shorterNumber, longerNumber;
+    size_t longerLength;
+
+    if (n1.number.length() < n2.number.length()) {
+        longerNumber = n2.number;
+        longerLength = n2.number.length();
+        shorterNumber = n1.number;
+    } else {
+        longerNumber = n1.number;
+        longerLength = n1.number.length();
+        shorterNumber = n2.number;  
+    }
+
+    reverse(shorterNumber.begin(), shorterNumber.end());
+    reverse(longerNumber.begin(), longerNumber.end());
+
+    while(shorterNumber.length() < longerLength) {
+        shorterNumber.push_back('0');
+    }
+  
+    for(size_t i = 0; i < longerLength; i++) {
+        int digit = (shorterNumber.at(i) - 48) + (longerNumber.at(i) - 48) + carry;
+
+        if (digit > 9) {
+            carry = 1;
+            digit -= 10;
+        } else {
+            carry = 0;
+        }
+
+        sumNumber.push_back(digit + '0');
+    }
+
+    if (carry) {
+        sumNumber.push_back(carry + '0');
+    }
+
+    reverse(sumNumber.begin(), sumNumber.end());
+    return LargeNumber(sumNumber);
+}
+
+string solution() {
+    LargeNumber sum("");
+
+    fstream file;
+    string line;
+
+    file.open("../013.txt");
+    
+    if (file.is_open()) {
+        while (getline(file, line)) {
+            sum = sum + LargeNumber(line);
+        }
+    }
+
+    return sum.number.substr(0, 10);
+}
+```
+**Note:** this solution uses char manipulations. 
+**Solved 25th July 2025.**
+
