@@ -69,3 +69,5 @@ int main(void) {
 
     return 0;
 }
+
+// Solved 24th July 2025.

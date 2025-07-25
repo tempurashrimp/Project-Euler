@@ -238,3 +238,44 @@ string solution() {
 **Note:** this solution uses char manipulations. 
 **Solved 25th July 2025.**
 
+## Problem 014: Longest Collatz Sequence
+*The following iterative sequence is defined for the set of positive integers:*
+$$
+\begin{align}
+n&\to \frac{n}{2}\text{ (}n\text{ is even)} \\
+n&\to 3n+1\text{ (}n\text{ is odd)}
+\end{align}
+$$
+*Using the rule above and starting with $13$, we generate the following sequence:*
+$$
+13\to 40\to 20\to 10\to 5\to 16\to 8\to 4\to 2\to 1
+$$
+*It can be seen that this sequence (starting at $13$ and finishing at $1$) contains $10$ terms. Although it has not been proved yet (Collatz Problem), it is thought that all starting numbers finish at $1$. Which starting number, under one million, produces the longest chain? **NOTE:** Once the chain starts the terms are allowed to go above one million.*
+
+Rather than brute-forcing every single number under $1000000$, we can start checking from $\frac{1000000}{2}=500000$. This is because the length of the Collatz sequence of any number $n$ is shorter than the sequence of $2n$ (by $1$). 
+
+```js
+function solution(n) {
+    let longest = 0, terms = 1, longestTerms = 1, k;
+    for (let i = Math.round(n / 2); i < n; i++) {
+        terms = 1, k = i;
+
+        while (k != 1) {
+            terms++;
+            if (k % 2) {
+                k = 3 * k + 1;
+            } else {
+                k = k / 2;
+            }
+        }
+
+        if (terms > longestTerms) {
+            longestTerms = terms;
+            longest = i;
+        }
+    }
+
+    return longest;
+}
+```
+**Solved 26th July 2025.**

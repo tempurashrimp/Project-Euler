@@ -45,3 +45,5 @@ function solution(n) {
         }
     }
 }
+
+// Solved 24th July 2025.
