@@ -279,3 +279,31 @@ function solution(n) {
 }
 ```
 **Solved 26th July 2025.**
+
+## Problem 015: Lattice Paths
+*Starting in the top left corner of a $2\times 2$ grid, and only being able to move to the right and down, there are exactly $6$ routes to the bottom right corner. How many such routes are there through a $20\times 20$ grid?*
+
+This is more of a combinatorics problem than a programming one. First note the case for a $2\times 2$ grid. We notice that to reach the bottom-right corner, $4$ steps have to be taken. At each point in the grid, the path can only go either right or down. The path must go right $2$ times, and go down $2$ times. For this case, the number of routes possible will be
+$$
+\frac{4!}{2!\times 2!}\equiv \binom{4}{2}=6.
+$$
+It is also to be noted that
+$$
+\binom{n}{r}=\frac{n!}{r!(n-r)!}=1\times \frac{n-r+1}{1}\times \frac{n-r+2}{2}\times\dots
+$$
+Hence, without the use of factorials, we can obtain a solution with repeated multiplications. For an $n\times n$ grid, there are $_{2n}C_{n}$ different possible routes.
+
+```js
+function solution(n) {
+    let sum = 1n;
+
+    for (let i = 1; i <= n; i++){
+        sum = sum * (BigInt(n) + BigInt(i)) / BigInt(i);
+    }
+
+    return sum;
+}
+```
+**Solved 26th July 2025.**
+**Sources:**
+https://www.geeksforgeeks.org/dsa/program-calculate-value-ncr/#expected-approach-by-using-binomial-coefficient-formula (Implementing $_{n}C_{r}$)
