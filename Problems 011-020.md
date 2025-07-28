@@ -307,3 +307,87 @@ function solution(n) {
 **Solved 26th July 2025.**
 **Sources:**
 https://www.geeksforgeeks.org/dsa/program-calculate-value-ncr/#expected-approach-by-using-binomial-coefficient-formula (Implementing $_{n}C_{r}$)
+
+## Problem 016: Power Digit Sum
+*$2^{15}=32768$ and the sum of its digits is $3+2+7+6+8=26$. What is the sum of the digits of the number $2^{1000}$?*
+
+Similar to Problem 013, we extend the LargeNumber class in C++ to include multiplication, based off the existing addition operation. Its functionality is based off arithmetic multiplication. For instance,
+$$
+2375\times 32=(2375\times 30)+(2375\times 2).
+$$
+
+```cpp
+LargeNumber operator* (const LargeNumber &n1, const LargeNumber &n2) {
+    LargeNumber product("");
+
+    int carry = 0;
+    string shorterNumber, longerNumber;
+    size_t shorterLength, longerLength;
+
+    if (n1.number.length() < n2.number.length()) {
+        longerNumber = n2.number;
+        longerLength = n2.number.length();
+        shorterNumber = n1.number;
+        shorterLength = n1.number.length();
+    } else {
+        longerNumber = n1.number;
+        longerLength = n1.number.length();
+        shorterNumber = n2.number;
+        shorterLength = n2.number.length();
+    }
+
+    reverse(shorterNumber.begin(), shorterNumber.end());
+    reverse(longerNumber.begin(), longerNumber.end());
+
+    for(size_t i = 0; i < shorterLength; i++) {
+        LargeNumber innerProduct("");
+        int currentDigit = shorterNumber.at(i) - '0';
+        carry = 0;
+  
+
+        for (size_t j = 0; j < longerLength; j++) {
+            int digit = currentDigit * (longerNumber.at(j) - '0') + carry;
+            carry = digit / 10;
+            digit = digit % 10;
+
+            innerProduct.number.push_back(digit + '0');
+        }
+
+        if (carry) {
+            innerProduct.number.push_back(carry + '0');
+        }
+
+        reverse(innerProduct.number.begin(), innerProduct.number.end());
+
+        for (size_t j = 0; j < i; j++) {
+            innerProduct.number.push_back('0');
+        }
+
+        product = product + innerProduct;
+
+    }
+    
+    return product;
+}
+
+  
+
+int solution() {
+    LargeNumber twoToFifty(to_string(
+        static_cast<unsigned long long>(pow(2, 50))));
+    LargeNumber twoToAThousand(to_string(
+        static_cast<unsigned long long>(pow(2, 50))));
+
+    for (int i = 0; i < 19; i++) {
+        twoToAThousand = twoToAThousand * twoToFifty;
+    }
+
+    int digitSum = 0;
+    for (char digit : twoToAThousand.number) {
+        digitSum += (digit - '0');
+    }
+
+    return digitSum;
+}
+```
+**Solved 28th July 2025.**
