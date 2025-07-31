@@ -102,7 +102,7 @@ n=p_{1}^{a_{1}}\times p_{2}^{a_{2}}+\dots+p_{n}^{a_{n}},
 $$
 then the number of factors will be equal to
 $$
-\sum_{n}a_{n}.
+\sum_{n}(a_{n}+1).
 $$
 The program generates the $n$th triangle number with $\frac{1}{2}n(n+1)$, and computes the number of factors based on this property.
 ```js
@@ -433,3 +433,44 @@ function solution(n) {
 }
 ```
 **Solved 29th July 2025.**
+## Problem 018: Maximum Path Sum I
+By starting at the top of the triangle below and moving to adjacent numbers on the row below, the maximum total from top to bottom is $23$.
+```
+3
+7 4
+2 4 6
+8 5 9 3
+```
+That is, $3+7+4+9=23$. Find the maximum total from top to bottom of the triangle below:
+```
+75
+95 64
+17 47 82
+18 35 87 10
+20 04 82 47 65
+19 01 23 75 03 34
+88 02 77 73 07 63 67
+99 65 04 28 06 16 70 92
+41 41 26 56 83 40 80 70 33
+41 48 72 33 47 32 37 16 94 29
+53 71 44 65 25 43 91 52 97 51 14
+70 11 33 28 77 73 17 78 39 68 17 57
+91 71 52 38 17 14 91 43 58 50 27 29 48
+63 66 04 68 89 53 67 30 73 16 69 87 40 31
+04 62 98 27 23 09 70 98 73 93 38 53 60 04 23
+```
+
+We solve this problem top-to-bottom. For every step taken downwards, there are a maximum of $2$ choices. Hence, we continuously add the numbers downwards, starting from the second row. Eventually, the bottom row should contain the maximum path sum. For instance, the example tree becomes
+```
+3               3
+7  4        --> 10 7
+2  4  6         12 14 13
+8  5  9  3      20 19 23 16
+```
+Note that numbers on the left-most column can only be accumulated with numbers also on the left-most column, and the numbers on the right-most can only be accumulated from the right-most. As for numbers in middle columns, we add the maximum from the two numbers directly adjacent to them. (For instance, $5$ on the $4^{\text{th}}$ row is adjacent to $2$ and $4$).
+
+(Maybe in the future I can re-implement this as a binary tree.)
+
+**Solved 31st July 2025.**
+**Sources:**
+https://www.ivl-projecteuler.com/overview-of-problems/5-difficulty/problem-18 (Explanation of algorithm)
