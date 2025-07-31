@@ -33,7 +33,7 @@ num solution(num n) {
         product = 1;
 
         for (int j = i; j < i + n; j++) {
-            product *= digits.at(j);
+            product *= digits[j];
             if (product == 0) {
                 // 0 is present in the sequence
                 break;

@@ -37,7 +37,7 @@ LargeNumber operator+ (const LargeNumber &n1, const LargeNumber &n2) {
 
     for(size_t i = 0; i < longerLength; i++) {
         // Calculate digit by digit
-        int digit = (shorterNumber.at(i) - 48) + (longerNumber.at(i) - 48) + carry;
+        int digit = (shorterNumber[i] - 48) + (longerNumber[i] - 48) + carry;
 
         if (digit > 9) {
             carry = 1;
@@ -86,11 +86,11 @@ LargeNumber operator* (const LargeNumber &n1, const LargeNumber &n2) {
 
     for(size_t i = 0; i < shorterLength; i++) {
         LargeNumber innerProduct("");
-        int currentDigit = shorterNumber.at(i) - '0';
+        int currentDigit = shorterNumber[i] - '0';
         carry = 0;
 
         for (size_t j = 0; j < longerLength; j++) {
-            int digit = currentDigit * (longerNumber.at(j) - '0') + carry;
+            int digit = currentDigit * (longerNumber[j] - '0') + carry;
             carry = digit / 10;
             digit = digit % 10;
 

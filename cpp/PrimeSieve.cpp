@@ -18,7 +18,7 @@ PrimeSieve::PrimeSieve() {
 // you only need to check for the previous primes (i.e., 2, 3 etc.)
 void PrimeSieve::extend() {
     num k = endSegment;
-    num p = primes.at(k), q = primes.at(k + 1);
+    num p = primes[k], q = primes[k + 1];
     
     // Range from the square of the previous prime to current prime
     // segment = range(p * p, q * q)
@@ -46,14 +46,14 @@ void PrimeSieve::extend() {
         // repeat(False, len(range(start - segment_min, segment_len, pk)))
         for (size_t j = start - segmentMin; 
             j < segmentLen; j += pk) {
-            isPrime.at(j) = false;
+            isPrime[j] = false;
         }
     }
 
     // self.primes.extend([x for x,
     // prime in zip(segment, is_prime) if prime])
     for (size_t j = 0; j < segmentLen; ++j){
-        if (isPrime.at(j)) {
+        if (isPrime[j]) {
             primes.push_back(segmentMin + j);
         }      
     }

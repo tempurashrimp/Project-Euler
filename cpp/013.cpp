@@ -49,7 +49,7 @@ LargeNumber operator+ (const LargeNumber &n1, const LargeNumber &n2) {
 
     for(size_t i = 0; i < longerLength; i++) {
         // Calculate digit by digit
-        int digit = (shorterNumber.at(i) - 48) + (longerNumber.at(i) - 48) + carry;
+        int digit = (shorterNumber[i] - 48) + (longerNumber[i] - 48) + carry;
 
         if (digit > 9) {
             carry = 1;

@@ -53,20 +53,20 @@ num solution() {
         for (size_t j = 0; j <= i; j++) {
             if (j == 0) {
                 // Element at the first column
-                triangle.at(i).at(j) += triangle.at(i - 1).at(j);
+                triangle[i][j] += triangle[i - 1][j];
             } else if (j == i) {
                 // Element at the last column
-                triangle.at(i).at(j) += triangle.at(i - 1).at(j - 1);
+                triangle[i][j] += triangle[i - 1][j - 1];
             } else {
                 // Compare and add the maximum
-                triangle.at(i).at(j) += (triangle.at(i - 1).at(j) > triangle.at(i - 1).at(j - 1)) ?
-                triangle.at(i - 1).at(j) : triangle.at(i - 1).at(j - 1);
+                triangle[i][j] += (triangle[i - 1][j] > triangle[i - 1][j - 1]) ?
+                triangle[i - 1][j] : triangle[i - 1][j - 1];
             }
         } 
     }
     
-    return *max_element(triangle.at(triangle.size() - 1).begin(), 
-    triangle.at(triangle.size() - 1).end());
+    return *max_element(triangle[triangle.size() - 1].begin(), 
+    triangle[triangle.size() - 1].end());
 }
 
 int main() {

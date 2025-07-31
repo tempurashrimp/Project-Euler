@@ -50,7 +50,7 @@ num solution() {
     // Read horizontally.
     for (vector<int> row : grid) {
         for (size_t i = 0; i < dimension - 3; ++i) {
-            num product = row.at(i) * row.at(i + 1) * row.at(i + 2) * row.at(i + 3);
+            num product = row[i] * row[i + 1] * row[i + 2] * row[i + 3];
             if (product > greatestProduct) {
                 greatestProduct = product;
             }
@@ -60,7 +60,7 @@ num solution() {
     // Read vertically.
     for (size_t i = 0; i < dimension - 3; ++i) {
         for (size_t j = 0; j < dimension; ++j) {
-            num product = grid.at(i).at(j) * grid.at(i + 1).at(j) * grid.at(i + 2).at(j) * grid.at(i + 3).at(j);
+            num product = grid[i][j] * grid[i + 1][j] * grid[i + 2][j] * grid[i + 3][j];
             if (product > greatestProduct) {
                 greatestProduct = product;
             }
@@ -70,7 +70,7 @@ num solution() {
     // Read diagonally (\)
     for (size_t i = 0; i < dimension - 3; ++i) {
         for (size_t j = 0; j < dimension - 3; ++j) {
-            num product = grid.at(i).at(j) * grid.at(i + 1).at(j + 1) * grid.at(i + 2).at(j + 2) * grid.at(i + 3).at(j + 3);
+            num product = grid[i][j] * grid[i + 1][j + 1] * grid[i + 2][j + 2] * grid[i + 3][j + 3];
             if (product > greatestProduct) {
                 greatestProduct = product;
             }
@@ -80,7 +80,7 @@ num solution() {
     // Read diagonally (/)
     for (size_t i = 0; i < dimension - 3; ++i) {
         for (size_t j = dimension - 1; j > 3; --j) {
-            num product = grid.at(i).at(j) * grid.at(i + 1).at(j - 1) * grid.at(i + 2).at(j - 2) * grid.at(i + 3).at(j - 3);
+            num product = grid[i][j] * grid[i + 1][j - 1] * grid[i + 2][j - 2] * grid[i + 3][j - 3];
             if (product > greatestProduct) {
                 greatestProduct = product;
             }
