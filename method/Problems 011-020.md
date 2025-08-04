@@ -474,3 +474,46 @@ Note that numbers on the left-most column can only be accumulated with numbers a
 **Solved 31st July 2025.**
 **Sources:**
 https://www.ivl-projecteuler.com/overview-of-problems/5-difficulty/problem-18 (Explanation of algorithm)
+
+## Problem 019: Counting Sundays
+*You are given the following information, but you may prefer to do some research for yourself.*
+- *1 Jan 1900 was a Monday.*
+- *Thirty days has September,*  *April, June and November.*  *All the rest have thirty-one,*  *Saving February alone,*  *Which has twenty-eight, rain or shine.*  *And on leap years, twenty-nine.*
+- *A leap year occurs on any year evenly divisible by 4, but not on a century unless it is divisible by 400.*
+*How many Sundays fell on the first of the month during the twentieth century (1 Jan 1901 to 31 Dec 2000)?*
+
+Save the day of the week as an integer from $0$ to $6$ ($0=Sunday, $6=$Saturday), add the corresponding number of days in the month, and take $\text{mod } 7$. Since $2000$ is known to be leap, we do not need to implement another check (divisibility by $100$).
+
+```js
+function solution() {
+    let day = 2, firsts = 0;
+
+    for (let year = 1901; year <= 2000; year++) {
+        let leap = year % 4 ? false : true;
+
+        for (let month = 0; month < 12; month++) {
+            switch (month) {
+            case 3:  // April
+            case 5:  // June
+            case 8:  // September
+            case 10: // November
+                day += 30;
+                break;
+
+            case 1:  // February
+                day += leap ? 29 : 28;
+                break;
+
+            default: // Other months
+                day += 31;
+            }
+
+            day %= 7;
+            firsts += day ? 0 : 1;
+        }
+    }
+
+    return firsts;
+}
+```
+**Solved 4th August 2025.**
