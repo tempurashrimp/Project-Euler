@@ -517,3 +517,24 @@ function solution() {
 }
 ```
 **Solved 4th August 2025.**
+
+## Problem 020: Factorial Digit Sum
+*$n!$ means $n\times(n-1)\times\dots \times 3 \times 2 \times 1$. For example,  $10! =10\times 9 \times\dots \times 3 \times 2\times 1=3628800$, and the sum of the digits of the number $10!$ is $3+6+2+8+8+0+0=27$. Find the sum of the digits of the number $100!$.*
+
+To calculate the sum of digits, a method from Problem 016 is also implemented here.
+```js
+function solution(n) {
+    let factorial = 1n;
+    for (let i = n; i > 1; i--) {
+        factorial *= BigInt(i);
+    }
+  
+    let digitSum = 0;
+    factorial.toString().split("").forEach(digit => function () {
+        digitSum += Number(digit);
+    }());
+
+    return digitSum;
+}
+```
+**Solved 5th August 2025.**

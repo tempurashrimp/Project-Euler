@@ -15,7 +15,6 @@ function solution() {
         digitSum += Number(digit);
     }());
 
-    console.log(digitSum)
     return digitSum;
 }
 
