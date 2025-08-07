@@ -14,6 +14,10 @@ PrimeSieve::PrimeSieve() {
     endSegment = 1;
 }
 
+PrimeSieve::~PrimeSieve() {
+    primes.clear();
+}
+
 // To check all the primes up to 5^2 and so on,
 // you only need to check for the previous primes (i.e., 2, 3 etc.)
 void PrimeSieve::extend() {

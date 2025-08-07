@@ -31,3 +31,5 @@ function solution(triangle) {
 
     return Math.max(...triangle[triangle.length - 1]);
 }
+
+// Solved 31st July 2025.

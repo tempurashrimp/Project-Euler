@@ -482,7 +482,7 @@ https://www.ivl-projecteuler.com/overview-of-problems/5-difficulty/problem-18 (E
 - *A leap year occurs on any year evenly divisible by 4, but not on a century unless it is divisible by 400.*
 *How many Sundays fell on the first of the month during the twentieth century (1 Jan 1901 to 31 Dec 2000)?*
 
-Save the day of the week as an integer from $0$ to $6$ ($0=Sunday, $6=$Saturday), add the corresponding number of days in the month, and take $\text{mod } 7$. Since $2000$ is known to be leap, we do not need to implement another check (divisibility by $100$).
+Save the day of the week as an integer from $0$ to $6$ ($0$=Sunday, $6=$Saturday), add the corresponding number of days in the month, and take $\text{mod } 7$. Since $2000$ is known to be leap, we do not need to implement another check (divisibility by $100$).
 
 ```js
 function solution() {

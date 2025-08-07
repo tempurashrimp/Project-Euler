@@ -3,6 +3,7 @@
 #define PRIMESIEVE_H
 
 #include <iostream>
+#include <numeric>
 #include <vector>
 
 using namespace std;
@@ -15,6 +16,7 @@ class PrimeSieve {
         vector<num> primes;
         num endSegment;
         PrimeSieve();
+        ~PrimeSieve();
         void extend();
 };
 
