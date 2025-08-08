@@ -24,8 +24,6 @@ function d(n) {
     return sum - n;
 }
 
-  
-
 function solution(n) {
     let sieve = new PrimeSieve();
 
@@ -57,3 +55,28 @@ function solution(n) {
 }
 ```
 **Solved 7th August 2025.**
+
+## Problem 022: Names Scores
+*Using `names.txt`, a 46K text file containing over five-thousand first names, begin by sorting it into alphabetical order. Then working out the alphabetical value for each name, multiply this value by its alphabetical position in the list to obtain a name score. For example, when the list is sorted into alphabetical order, COLIN, which is worth $3 + 15 + 12 + 9 + 14 = 53$, is the $938^{\text{th}}$ name in the list. So, COLIN would obtain a score of $938\times53 = 49714$. What is the total of all the name scores in the file?*
+
+I will rewrite my code to implement quicksort instead of the built in sort, just for fun; using the built-in sort functions is kinda lame right now.
+```js
+function solution(names) {
+    names.sort();
+
+    let totalSum = 0, pos = 1;
+    names.forEach(name => function () {
+        let sum = 0;
+
+        name.split("").forEach(letter => function () {
+            sum += letter.charCodeAt(0) - 64;
+        }());
+
+        totalSum += sum * pos;
+        pos++;
+    }());
+
+    return totalSum;
+}
+```
+**Solved 8th August 2025.**
