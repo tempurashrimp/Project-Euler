@@ -198,3 +198,43 @@ function solution(n) {
 **Sources:**
 https://www.ivl-projecteuler.com/overview-of-problems/5-difficulty/problem-24 (On the method used; the code solutions differ.)
 
+## Problem 025: 1000-digit Fibonacci Number
+*The Fibonacci sequence is defined by the recurrence relation:*
+*$F_n = F_{n - 1} + F_{n - 2}$, where $F_1 = 1$ and $F_2 = 2$.* 
+*Hence the first $12$ terms will be* 
+$$
+\begin{align}
+F_{1}&=1 \\
+F_{2}&=1 \\
+F_{3}&=2 \\
+F_{4}&=3 \\
+F_{5}&=5 \\
+F_{6}&=8 \\
+F_{7}&=13 \\
+F_{8}&=21 \\
+F_{9}&=34 \\
+F_{10}&=55 \\
+F_{11}&=89 \\
+F_{12}&=144
+\end{align}
+$$
+
+*The $12$th term, $F_{12}$, is the first term to contain three digits. What is the index of the first term in the Fibonacci sequence to contain $1000$ digits?*
+
+```js
+function solution(n) {
+    let fibTerms = [1n, 1n, 2n];
+    let index = 3;
+
+    while (fibTerms[2].toString().length < n) {
+        fibTerms[0] = fibTerms[1];
+        fibTerms[1] = fibTerms[2];
+        fibTerms[2] = fibTerms[1] + fibTerms[0];
+
+        index++;
+    }
+
+    return index;
+}
+```
+**Solved 23rd August 2025.**

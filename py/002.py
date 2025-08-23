@@ -23,7 +23,7 @@ def solution(n) -> int:
 
 def main():
     n = input("Type an integer:")
-    print(f"Sum of all the multiples of 3 or 5 below {n} is {solution(n)}")
+    print(f"Sum of even Fibonacci terms not exceeding {n} is {solution(n)}")
     
 if __name__ == "__main__":
     main()
