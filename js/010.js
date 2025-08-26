@@ -11,9 +11,9 @@ function solution(n) {
     let primeSum = 0;
     let sieve = new PrimeSieve();
 
-    while (sieve.primes.back() < n) {
+    while (n > sieve.primes[sieve.primes.length - 1]) {
         sieve.extend();
-    } 
+    }
 
     sieve.primes.forEach(prime => {
         if (prime < n) {

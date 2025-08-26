@@ -238,3 +238,75 @@ function solution(n) {
 }
 ```
 **Solved 23rd August 2025.**
+
+## Problem 026: Reciprocal Cycles
+*A unit fraction contains $1$ in the numerator. The decimal representation of the unit fractions with denominators $2$ to $10$ are given:*
+$$
+\begin{align}
+1/2&=0.5 \\
+1/3&=0.(3) \\
+1/4&=0.25 \\
+1/5&=0.2 \\
+1/6&=0.1(6) \\
+1/7&=0.(142857) \\
+1/8&=0.125 \\
+1/9&=0.(1) \\
+1/10&=0.1
+\end{align}
+$$
+*Where $0.1(6)$ means $0.166666\dots$, and has a $1$-digit recurring cycle. It can be seen that $1/7$ has a $6$-digit recurring cycle. Find the value of $d<1000$ for which $1/d$ contians the longest recurring cycle in its decimal fraction part.* 
+
+It turns out that if the denominator is some prime number $p$, then the longest possible repetend length for $\frac{1}{p}$ becomes $(p-1)$. The repetend length is equal to the multiplicative order of $10\text{ mod }p$, which is also computed by finding the smallest natural number $k$ that satisfies $10^{k}\equiv 1\:(\text{mod } p)$.
+
+Therefore, we only need to compute the repetend lengths of prime numbers. Since computing $10^{k}\text{ mod }p$ can be rather tedious for large $k$, we can do this same calculation with the function below.
+```js
+function repetendLength(p) {
+    let r = 10 % p;
+    let n = 1;
+
+    while (r != 1) {
+        r = (10 * r) % p;
+        n += 1;
+    }
+
+    return n;
+}
+```
+
+Consider `repetendLength(7)`. Then each iteration is as follows.
+
+| `n` | `r = (10 * r) % p`     |
+| --- | ---------------------- |
+| 1   | 3  (note: 10 % 7 = 3.) |
+| 2   | 30 % 7 = 2             |
+| 3   | 20 % 7 = 6             |
+| 4   | 60 % 7 = 4             |
+| 5   | 40 % 7 = 5             |
+| 6   | 50 % 7 = 1             |
+Hence, since $n=6$ we get `repetendLength(7) = 6.` Double-checking this with a computer we in fact get $10^{6}\equiv 1\:(\text{mod }7)$. This is because by the sixth step ($n=6$), we multiplied $10$ to itself $6$ times to simulate $10^{6}$. In fact, this is almost conceptually similar to paper-based long division.
+
+```js
+function solution(n) {
+    let sieve = new PrimeSieve();
+    let d = new Set();
+
+    while (sieve.primes[sieve.primes.length - 1] < n) {
+        sieve.extend();
+    }
+    
+    sieve.primes.splice(2, 1);      // 5
+    sieve.primes.splice(0, 1);      // 2
+    sieve.primes = sieve.primes.filter(p => p < n);
+
+    for (const p of sieve.primes) {
+        d.add(repetendLength(p));
+    }
+
+    return Math.max(...d);
+}
+```
+
+**Solved 26th August 2025.**
+**Sources:**
+https://mathlesstraveled.wordpress.com/2019/02/08/finding-the-repetend-length-of-a-decimal-expansion/ (On the calculation of the repetend length.)
+https://en.wikipedia.org/wiki/Repeating_decimal#Fractions_with_prime_denominators (On the properties of repeating decimals.)
