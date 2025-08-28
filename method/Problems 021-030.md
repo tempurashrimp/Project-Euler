@@ -404,3 +404,87 @@ function solution() {
 }
 ```
 **Solved 27th August 2025.**
+
+## Problem 028: Number Spiral Diagonals
+*Starting with the number $1$ and moving to the right in a clockwise direction a $5$ by $5$ spiral is formed as follows:*
+<small style="font-family:monospace;"><b style="color: red">21</b> 22 23 24 <b style="color: red">25</b> <br />20 <b style="color: red">&nbsp;7&nbsp;</b>&nbsp;8 <b style="color: red">&nbsp;9</b> 10 <br />19 &nbsp;6 <b style="color: red">&nbsp;1</b> &nbsp;2 11 <br />18 <b style="color: red">&nbsp;5</b> &nbsp;4 <b style="color: red">&nbsp;3</b> 12 <br /><b style="color: red">17</b> 16 15 14 <b style="color: red">13</b></small>
+*It can be verified that the sum of the numbers on the diagonals is $101$. What is the sum of the numbers on the diagonals in a $1001$ by $1001$ spiral formed in the same way?*
+
+First we note that the sum of diagonals is given by:
+$$
+\begin{align}
+1&+3+5+7+9+13+17+21+25 \\
+&=1+(3+5+7+9)+(13+17+21+25) \\
+\end{align}
+$$
+Now consider the part $(13+17+21+25)$. Each term can be computed from the dimension by some equation.
+$$
+\begin{align}
+25&=5^{2} \\
+21&=5^{2}-4& &=5^{2}-(5-1)\\
+17&=5^{2}-8&  &=5^{2}-2(5-1)\\
+13&=5^{2}-12& &=5^{2}-3(5-1)
+\end{align}
+$$
+Next, considering the part $(3+5+7+9)$,
+$$
+\begin{align}
+9&=3^{2} \\
+7&=3^{2}-2 &&=3^{2}-(3-1)\\
+5&=3^{2}-4 &&=3^{2}-2(3-1)\\
+3&=3^{2}-6 &&=3^{2}-3(3-1)
+\end{align}
+$$
+Now, we can generalise this by replacing $3$ or $5$ with an odd number $n$.
+$$
+\begin{align}
+\sum &\text{corners} \\
+&=n^{2}+[n^{2}-(n-1)]+[n^{2}-2(n-1)]+[n^{2}-3(n-1)] \\
+&=n^{2}+(n^{2}-n+1)+(n^{2}-2n+2)+(n^{2}-3n+3) \\
+&=4n^{2}-6n+6
+\end{align}
+$$
+To calculate the sum of all diagonals,
+$$
+\begin{align}
+&\sum_{k=3}^{n}(4k^{2}-6k+6)\text{ where }k \text{ is odd} \\
+&=\sum_{m=1}^{\frac{1}{2}(n-1)}[4(2m+1)^{2}-6(2m+1)+6] \\
+&=\sum_{m=1}^{\frac{1}{2}(n-1)}[4(4m^{2}+4m+1)-(12m+6)+6] \\
+&=\sum_{m=1}^{\frac{1}{2}(n-1)}(16m^{2}+4m+4)
+\end{align}
+$$
+Using summation formulae, and let $l=\frac{1}{2}(n-1)$, where $n$ is an odd-numbered dimension:
+$$
+\begin{align}
+&\sum \text{diagonals} \\
+&=1+\sum_{m=1}^{l}(16m^{2}+4m+4) \\
+&=1+16\sum_{m=1}^{l}m^{2}+4\sum_{m=1}^{l}m+4l \\
+&=1+\frac{8}{3}l(l+1)(2l+1)+2l(l+1)+4l \\
+&=\frac{16}{3}l^{3}+10l^{2}+\frac{26}{3}l+1
+\end{align}
+$$
+
+```js
+function solution(n) {
+    if (!(n % 2)) {
+        console.log(" [Dimension must be odd.] ");
+        return 0;
+    }
+
+  let k = Math.floor((n - 1) / 2);
+  let solution = (16 * k * k * k) + (30 * k * k) + (26 * k) + 3;
+
+  return solution / 3;
+}
+```
+**Solved 29th August 2025.**
+
+
+
+
+
+
+
+
+
+
