@@ -523,3 +523,44 @@ function solution(n) {
 }
 ```
 **Solved 31st August 2025.**
+
+## Problem 030: Digit Fifth Powers
+*Surprisingly there are only three numbers that can be written as the sum of fourth powers of their digits:*
+$$
+\begin{align}
+1634&=1^{4}+6^{4}+3^{4}+4^{4} \\
+8268&=8^{4}+2^{4}+6^{4}+8^{4} \\
+9474&=9^{4}+4^{4}+7^{4}+4^{4}
+\end{align}
+$$
+*As $1=1^{4}$ is not a sum it is not included. The sum of these numbers is $1634 + 8208 + 9474 = 19316$. Find the sum of all the numbers that can be written as the sum of fifth powers of their digits.*
+
+Consider the largest possible fifth power of a digit, i.e. $9^{5}=59049$. Now, considering its multiples:
+$$
+\begin{align}
+1\times 9^{5}&= 59049\\
+2\times 9^{5}&= 118098\\
+&\vdots \\
+6\times 9^{5}&= 354294 \\
+7\times 9^{5}&= 413343
+\end{align}
+$$
+Because $7\times 9^{5}$ is only $6$ digits long, this means that it is not possible for any $7$ digit number to equal the sum of its fifth powers. Furthermore, if we check numbers greater than $6\times 9^{5}$, the sum of the digits will always be less than $6\times 9^{5}$, because this particular sum is only achieved when the number is $999999$.
+
+```js
+function solution() {
+    let sum = 0;
+    let fifthPowers = [0, 1, 32, 243, 1024, 3125, 7776, 16807, 32768, 59049];
+
+    for (let i = 2; i <= 354294; i++) {
+        if (i == i.toString().split("").reduce((acc, cur) => function () {
+            return acc + fifthPowers[cur];
+        }(), 0)) {
+            sum += i;
+        }
+    }
+
+    return sum;
+}
+```
+**Solved 2nd September 2025.**
